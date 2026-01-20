@@ -15,7 +15,7 @@
   "devDependencies": {
     "@turbowarp/types": "^0.0.13",
     "@types/bun": "latest",
-    "vite": "^6.3.5"
+    "vite": "8.0.0-beta.8"
   },
   "peerDependencies": {
     "typescript": "^5"
