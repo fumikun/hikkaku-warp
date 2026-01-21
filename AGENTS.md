@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- `packages/hikkaku/` is the main library package. Source lives in `packages/hikkaku/src/` (e.g., `blocks/`, `compiler/`, `client/`, `vite/`, `utils/`).
+- `packages/hikkaku/` is the main library package. Source lives in `packages/hikkaku/src/` (e.g., `blocks/`, `core/`, `client/`, `vite/`, `utils/`).
 - `packages/skill/` contains skill docs and guides (`guides/`, `practices/`).
 - `examples/example1/` is the dev playground app for running the library with Vite.
 - Root configs: `biome.json`, `tsconfig.json`, and workspace `package.json`.

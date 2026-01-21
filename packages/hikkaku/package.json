@@ -1,28 +1,27 @@
 {
   "name": "hikkaku",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
-  "private": true,
-  "module": "src/index.ts",
+  "private": false,
   "exports": {
     ".": "./src/index.ts",
+    "./assets": "./src/assets/index.ts",
+    "./blocks": "./src/blocks/index.ts",
     "./client": "./src/client/index.ts",
-    "./vite": "./src/vite/index.ts",
-    "./*": "./src/*",
-    "./blocks": "./src/blocks/index.ts"
+    "./vite": "./src/vite/index.ts"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "bun --bun tsdown"
+  },
   "devDependencies": {
-    "@turbowarp/types": "^0.0.13",
     "@types/bun": "latest",
-    "vite": "8.0.0-beta.8"
+    "tsdown": "^0.20.0-beta.4"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
-    "@hono/node-server": "^1.14.3",
-    "@pnsk-lab/sb3-types": "npm:@jsr/pnsk-lab__sb3-types@0.1.8",
-    "hono": "^4.7.10"
+    "vite": "8.0.0-beta.8",
+    "@pnsk-lab/sb3-types": "npm:@jsr/pnsk-lab__sb3-types@0.1.8"
   }
 }

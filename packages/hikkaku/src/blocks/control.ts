@@ -1,6 +1,6 @@
-import { fromPrimitiveSource } from '../compiler/block-helper'
-import { block, substack, valueBlock } from '../compiler/composer'
-import type { PrimitiveSource, VariableReference } from '../compiler/types'
+import { fromPrimitiveSource } from '../core/block-helper'
+import { block, substack, valueBlock } from '../core/composer'
+import type { PrimitiveSource, VariableReference } from '../core/types'
 
 export type StopOption =
   | 'all'

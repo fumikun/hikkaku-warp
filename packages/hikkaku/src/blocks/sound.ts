@@ -1,6 +1,6 @@
-import { fromPrimitiveSource, fromSoundSource } from '../compiler/block-helper'
-import { block, valueBlock } from '../compiler/composer'
-import type { PrimitiveSource, SoundSource } from '../compiler/types'
+import { fromPrimitiveSource, fromSoundSource } from '../core/block-helper'
+import { block, valueBlock } from '../core/composer'
+import type { PrimitiveSource, SoundSource } from '../core/types'
 
 export type SoundEffect = 'pitch' | 'pan'
 

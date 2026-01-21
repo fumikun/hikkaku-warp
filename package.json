@@ -6,7 +6,8 @@
     "examples/*"
   ],
   "scripts": {
-    "dev": "bun --cwd examples/example1 dev"
+    "dev": "bun --cwd examples/example1 dev",
+    "fmt": "biome check --fix --unsafe"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.11"

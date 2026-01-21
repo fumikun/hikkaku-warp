@@ -1,6 +1,6 @@
-import { fromPrimitiveSource } from '../compiler/block-helper'
-import { block, valueBlock } from '../compiler/composer'
-import type { PrimitiveSource } from '../compiler/types'
+import { fromPrimitiveSource } from '../core/block-helper'
+import { block, valueBlock } from '../core/composer'
+import type { PrimitiveSource } from '../core/types'
 
 export const moveSteps = (steps: PrimitiveSource<number>) => {
   return block('motion_movesteps', {

@@ -3,7 +3,6 @@
 
 import type * as sb3 from '@pnsk-lab/sb3-types'
 import { findDOMAppRoot, getScratchInternalStates } from './fiber'
-import type { getModeForResolutionAtIndex } from 'typescript'
 
 const root = findDOMAppRoot()
 const state = getScratchInternalStates(root)

@@ -1,13 +1,13 @@
 import { ASSET_CAT1, ASSET_CAT2, Project } from 'hikkaku'
 import {
+  and,
   broadcast,
   changeVariableBy,
   changeXBy,
   changeYBy,
-  createClone,
   controlStartAsClone,
+  createClone,
   deleteThisClone,
-  and,
   equals,
   forever,
   getKeyPressed,
@@ -16,14 +16,13 @@ import {
   getY,
   gotoXY,
   hide,
-  or,
   ifThen,
   lt,
+  or,
   say,
   setRotationStyle,
   setSizeTo,
   setVariableTo,
-  setX,
   setY,
   show,
   showVariable,
@@ -31,8 +30,8 @@ import {
   switchCostumeTo,
   touchingObject,
   wait,
-  whenFlagClicked,
   whenBroadcastReceived,
+  whenFlagClicked,
 } from 'hikkaku/blocks'
 
 const project = new Project()

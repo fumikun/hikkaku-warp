@@ -1,11 +1,11 @@
 import type { Fields } from '@pnsk-lab/sb3-types'
-import { fromPrimitiveSource } from '../compiler/block-helper'
-import { block, valueBlock } from '../compiler/composer'
+import { fromPrimitiveSource } from '../core/block-helper'
+import { block, valueBlock } from '../core/composer'
 import type {
   ListReference,
   PrimitiveSource,
   VariableReference,
-} from '../compiler/types'
+} from '../core/types'
 
 export type ListIndex = PrimitiveSource<number | string>
 

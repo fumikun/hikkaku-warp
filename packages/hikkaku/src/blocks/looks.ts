@@ -1,9 +1,6 @@
-import {
-  fromCostumeSource,
-  fromPrimitiveSource,
-} from '../compiler/block-helper'
-import { block, valueBlock } from '../compiler/composer'
-import type { CostumeSource, PrimitiveSource } from '../compiler/types'
+import { fromCostumeSource, fromPrimitiveSource } from '../core/block-helper'
+import { block, valueBlock } from '../core/composer'
+import type { CostumeSource, PrimitiveSource } from '../core/types'
 
 export type LookEffect =
   | 'color'

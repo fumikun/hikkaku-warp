@@ -1,6 +1,6 @@
-import { fromPrimitiveSource } from '../compiler/block-helper'
-import { valueBlock } from '../compiler/composer'
-import type { PrimitiveSource } from '../compiler/types'
+import { fromPrimitiveSource } from '../core/block-helper'
+import { valueBlock } from '../core/composer'
+import type { PrimitiveSource } from '../core/types'
 
 export const add = (a: PrimitiveSource<number>, b: PrimitiveSource<number>) => {
   return valueBlock('operator_add', {
