@@ -1,5 +1,7 @@
 import type * as sb3 from '@pnsk-lab/sb3-types'
 import { createServerModuleRunner, type PluginOption } from 'vite'
+import type { ModuleRunner } from 'vite/module-runner'
+import type { Project } from '../core'
 
 const BASE_URL = 'https://scratchfoundation.github.io/scratch-gui/'
 
@@ -7,6 +9,8 @@ export interface HikkakuViteInit {
   entry: string
 }
 export default function hikkaku(init: HikkakuViteInit): PluginOption {
+  let runner: ModuleRunner | null = null
+
   return {
     name: 'vite-plugin-hikkaku',
     config() {
@@ -29,15 +33,28 @@ export default function hikkaku(init: HikkakuViteInit): PluginOption {
         `
       }
     },
+    async hotUpdate(options) {
+      if (this.environment.name !== 'hikkaku') return
+      if (!runner) {
+        throw new Error('Module runner is not initialized.')
+      }
+      const project: Project = (await runner.import(options.file)).default
+      options.server.environments.client.hot.send('hikkaku:project', project.toScratch())
+    },
     async configureServer(server) {
       const hikkakuEnv = server.environments.hikkaku
       if (!hikkakuEnv) {
         throw new Error('Hikkaku environment is not configured.')
       }
-      const runner = createServerModuleRunner(hikkakuEnv)
-      await runner.import(init.entry)
-      hikkakuEnv.hot.on('hikkaku:project', (project: sb3.ScratchProject) => {
-        server.environments.client.hot.send('hikkaku:project', project)
+      await hikkakuEnv.transformRequest(init.entry)
+      //server.watcher.add(init.entry)
+      runner = createServerModuleRunner(hikkakuEnv)
+      server.environments.client.hot.on('vite:client:connect', async () => {
+        if (!runner) {
+          throw new Error('Module runner is not initialized.')
+        }
+        const project: Project = (await runner.import(init.entry)).default
+        server.environments.client.hot.send('hikkaku:project', project.toScratch())
       })
 
       server.middlewares.use(async (req, res, next) => {

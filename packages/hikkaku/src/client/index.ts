@@ -19,7 +19,8 @@ globalThis.hk = {
 
 import.meta.hot?.on('hikkaku:project', (project: sb3.ScratchProject) => {
   state.vm.loadProject(project)
+  console.log('Project loaded:', project)
   setTimeout(() => {
     state.scratchBlocks.getMainWorkspace().cleanUp()
-  }, 1000)
+  }, 500)
 })

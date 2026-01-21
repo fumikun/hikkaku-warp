@@ -131,5 +131,3 @@ obstacle.run(() => {
 })
 
 export default project
-
-import.meta.hot?.send('hikkaku:project', project.toScratch())
