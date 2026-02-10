@@ -17,11 +17,19 @@ globalThis.hk = {
   getJSON: () => state.vm.toJSON(),
 }
 
+let isFirstLoad = true
+
 import.meta.hot?.on('hikkaku:project', async (project: sb3.ScratchProject) => {
+  if (isFirstLoad) {
+    await new Promise((resolve) => setTimeout(resolve, 500))
+    isFirstLoad = false
+  }
   console.log('Received updated project:', project)
   await state.vm.loadProject(project).catch(console.error)
   console.log('Project loaded.')
 
   //state.scratchBlocks.getMainWorkspace().cleanUp()
-  setTimeout(() => {}, 100)
+
 })
+
+
