@@ -23,5 +23,10 @@
   "dependencies": {
     "vite": "8.0.0-beta.8",
     "@pnsk-lab/sb3-types": "npm:@jsr/pnsk-lab__sb3-types@0.1.8"
+  },
+  "repository": {
+    "url": "https://github.com/pnsk-lab/hikkaku",
+    "type": "git",
+    "directory": "packages/hikkaku"
   }
 }
