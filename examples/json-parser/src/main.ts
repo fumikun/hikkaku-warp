@@ -100,11 +100,11 @@ const getProcCode = 'get %s'
 const parseArgumentIds: string[] = []
 const getArgumentIds: string[] = []
 
-let parseProcedure: ReturnType<typeof defineProcedure>
-let getProcedure: ReturnType<typeof defineProcedure>
+let _parseProcedure: ReturnType<typeof defineProcedure>
+let _getProcedure: ReturnType<typeof defineProcedure>
 
 parser.run(() => {
-  parseProcedure = defineProcedure(
+  _parseProcedure = defineProcedure(
     [procedureLabel('parse'), procedureStringOrNumber('jsonText')],
     ({ jsonText }) => {
       if (parseArgumentIds.length === 0) {
@@ -1305,7 +1305,7 @@ parser.run(() => {
     true,
   )
 
-  getProcedure = defineProcedure(
+  _getProcedure = defineProcedure(
     [procedureLabel('get'), procedureStringOrNumber('query')],
     ({ query }) => {
       if (getArgumentIds.length === 0) {
