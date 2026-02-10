@@ -8,6 +8,16 @@
         "@biomejs/biome": "^2.3.11",
       },
     },
+    "examples/3d-ball-roll": {
+      "name": "example-3d-ball-roll",
+      "dependencies": {
+        "hikkaku": "workspace:*",
+      },
+      "devDependencies": {
+        "@typescript/native-preview": "^7.0.0-dev.20260127.1",
+        "vite": "8.0.0-beta.8",
+      },
+    },
     "examples/3d-cube": {
       "name": "example-3d-cube",
       "dependencies": {
@@ -179,6 +189,8 @@
     "empathic": ["empathic@2.0.0", "", {}, "sha512-i6UzDscO/XfAcNYD75CfICkmfLedpyPDdozrLMmQc5ORaQcdMoc21OnlEylMIqI7U8eniKrPMxxtj8k0vhmJhA=="],
 
     "estree-walker": ["estree-walker@3.0.3", "", { "dependencies": { "@types/estree": "^1.0.0" } }, "sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g=="],
+
+    "example-3d-ball-roll": ["example-3d-ball-roll@workspace:examples/3d-ball-roll"],
 
     "example-3d-cube": ["example-3d-cube@workspace:examples/3d-cube"],
 
