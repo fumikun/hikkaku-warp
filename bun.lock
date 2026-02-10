@@ -48,6 +48,16 @@
         "vite": "8.0.0-beta.8",
       },
     },
+    "examples/json-parser": {
+      "name": "example-json-parser",
+      "dependencies": {
+        "hikkaku": "workspace:*",
+      },
+      "devDependencies": {
+        "@typescript/native-preview": "^7.0.0-dev.20260127.1",
+        "vite": "8.0.0-beta.8",
+      },
+    },
     "packages/hikkaku": {
       "name": "hikkaku",
       "version": "0.1.9",
@@ -196,6 +206,8 @@
     "example-3d-cube": ["example-3d-cube@workspace:examples/3d-cube"],
 
     "example-bullet-hell": ["example-bullet-hell@workspace:examples/bullet-hell"],
+
+    "example-json-parser": ["example-json-parser@workspace:examples/json-parser"],
 
     "example1": ["example1@workspace:examples/base"],
 
