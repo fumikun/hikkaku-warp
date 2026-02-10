@@ -4,6 +4,7 @@ import {
   addToList,
   and,
   argumentReporterStringNumber,
+  askAndWait,
   callProcedure,
   changeVariableBy,
   contains,
@@ -12,6 +13,8 @@ import {
   deleteOfList,
   equals,
   forEach,
+  forever,
+  getAnswer,
   getItemOfList,
   getVariable,
   gt,
@@ -74,6 +77,8 @@ const numberBuffer = parser.createVariable('numberBuffer', '')
 const tempIndex = parser.createVariable('tempIndex', 0)
 const backspaceChar = parser.createVariable('backspaceChar', '\b')
 const formFeedChar = parser.createVariable('formFeedChar', '\f')
+const inputJSONText = parser.createVariable('inputJSONText', '')
+const inputQueryText = parser.createVariable('inputQueryText', '')
 
 const nodeType = parser.createList('nodeType', [])
 const nodeParent = parser.createList('nodeParent', [])
@@ -2037,124 +2042,19 @@ parser.run(() => {
 
   whenFlagClicked(() => {
     showList(queryResult)
-    // Sample JSON data to parse
-    const sampleJSON = JSON.stringify({
-      meta: {
-        version: '1.0',
-        generatedAt: '2026-02-10T20:00:00+09:00',
-        source: {
-          name: 'example-generator',
-          flags: ['demo', 'stress-test'],
-          checksum: {
-            algo: 'sha256',
-            value: 'a3f1c6e2deadbeef',
-          },
-        },
-      },
-      users: [
-        {
-          id: 'u_001',
-          profile: {
-            displayName: 'Alice',
-            age: 29,
-            contacts: [
-              { type: 'email', value: 'alice@example.com', verified: true },
-              { type: 'phone', value: null, verified: false },
-            ],
-            preferences: {
-              theme: 'dark',
-              language: 'ja',
-              experimental: {
-                newDashboard: true,
-                rankingModel: 'v3',
-              },
-            },
-          },
-          roles: ['admin', 'editor'],
-          lastLogin: '2026-02-09T12:34:56+09:00',
-        },
-        {
-          id: 'u_002',
-          profile: {
-            displayName: 'Bob',
-            age: null,
-            contacts: [],
-            preferences: {},
-          },
-          roles: ['viewer'],
-          lastLogin: null,
-        },
-      ],
-      projects: [
-        {
-          id: 'p_alpha',
-          ownerId: 'u_001',
-          members: ['u_001', 'u_002'],
-          tasks: [
-            {
-              id: 't1',
-              title: 'Design schema',
-              status: 'done',
-              estimate: { unit: 'hour', value: 5.5 },
-              tags: ['backend', 'api'],
-              history: [
-                {
-                  at: '2026-02-08T10:00:00+09:00',
-                  by: 'u_001',
-                  action: 'create',
-                },
-                {
-                  at: '2026-02-08T12:00:00+09:00',
-                  by: 'u_002',
-                  action: 'review',
-                },
-              ],
-            },
-            {
-              id: 't2',
-              title: 'Implement parser',
-              status: 'running',
-              estimate: { unit: 'hour', value: 12 },
-              tags: [],
-              history: [],
-            },
-          ],
-          settings: {
-            visibility: 'private',
-            limits: {
-              storageMB: 1024,
-              rate: {
-                perMinute: 120,
-                burst: 300,
-              },
-            },
-          },
-        },
-      ],
-      featureMatrix: {
-        beta: {
-          enabledUsers: ['u_001'],
-          rollout: 0.25,
-        },
-        legacy: false,
-      },
-      misc: [
-        42,
-        'text',
-        null,
-        { freeform: [1, 2, { deep: ['a', 'b', { x: true }] }] },
-      ],
-    })
-    // Parse the JSON
-    const parseArgId = parseArgumentIds[0] ?? ''
-    callProcedure(parseProcCode, parseArgumentIds, {
-      [parseArgId]: sampleJSON,
-    })
-    // Query the data (examples)
-    const getArgId = getArgumentIds[0] ?? ''
-    // Get name: .name
-    callProcedure(getProcCode, getArgumentIds, {
-      [getArgId]: '.meta',
+    forever(() => {
+      askAndWait('Enter JSON text:')
+      setVariableTo(inputJSONText, getAnswer())
+      const parseArgId = parseArgumentIds[0] ?? ''
+      callProcedure(parseProcCode, parseArgumentIds, {
+        [parseArgId]: read(inputJSONText),
+      })
+      askAndWait('Enter query:')
+      setVariableTo(inputQueryText, getAnswer())
+      const queryArgId = getArgumentIds[0] ?? ''
+      callProcedure(getProcCode, [queryArgId], {
+        [queryArgId]: read(inputQueryText),
+      })
     })
   })
 })
