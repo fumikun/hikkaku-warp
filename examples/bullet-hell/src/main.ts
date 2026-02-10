@@ -35,7 +35,6 @@ import {
   setX,
   show,
   showVariable,
-  stop,
   touchingObject,
   wait,
   whenBroadcastReceived,
@@ -138,7 +137,6 @@ player.run(() => {
 
   whenBroadcastReceived(gameOverEvent, () => {
     sayForSecs('GAME OVER', 2)
-    stop('all')
   })
 })
 
@@ -154,15 +152,13 @@ bullet.run(() => {
     hide()
     setSizeTo(22)
     forever(() => {
-      ifThen(equals(readVar(gameOver), 0), () => {
-        repeat(add(3, mathop('floor', divide(readVar(score), 90))), () => {
-          gotoXY(readVar(bossX), readVar(bossY))
-          pointInDirection(add(180, random(-70, 70)))
-          setVariableTo(speed, add(4.5, divide(readVar(score), 180)))
-          createClone(CREATE_CLONE_MYSELF)
-        })
-        wait(divide(35, add(65, readVar(score))))
+      repeat(add(3, mathop('floor', divide(readVar(score), 90))), () => {
+        gotoXY(readVar(bossX), readVar(bossY))
+        pointInDirection(add(180, random(-70, 70)))
+        setVariableTo(speed, add(4.5, divide(readVar(score), 180)))
+        createClone(CREATE_CLONE_MYSELF)
       })
+      wait(divide(35, add(65, readVar(score))))
       wait(0.01)
     })
   })
