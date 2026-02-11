@@ -11,7 +11,5 @@
   "peerDependencies": {
     "typescript": "^5"
   },
-  "scripts": {
-    "build": "bun scripts/build.ts"
-  }
+  "scripts": {}
 }
