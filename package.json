@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "docs:dev": "bun --cwd docs dev",
-    "docs:build": "bun --cwd docs build",
+    "docs:build": "turbo run docs:build",
     "docs:preview": "bun --cwd docs preview",
     "lint": "biome check",
     "fmt": "biome check --fix --unsafe",

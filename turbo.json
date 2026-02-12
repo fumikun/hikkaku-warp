@@ -11,6 +11,11 @@
     },
     "build-blocks": {
       "outputs": ["src/blocks/**"]
+    },
+    "docs:build": {
+      "outputs": [".vitepress/dist/**"],
+      "cache": true,
+      "dependsOn": ["hikkaku#build"]
     }
   }
 }
