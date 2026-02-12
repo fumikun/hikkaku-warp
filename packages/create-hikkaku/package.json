@@ -1,6 +1,6 @@
 {
   "name": "create-hikkaku",
-  "version": "0.1.9",
+  "version": "0.2.2",
   "type": "module",
   "scripts": {
     "build": "bun build src/main.ts --outdir dist --target=node"
