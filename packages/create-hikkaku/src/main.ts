@@ -476,7 +476,7 @@ const getSkillsCommand = (pm) => {
   if (pm === 'bun') {
     return {
       command: 'bunx',
-      args: ['skills', 'add', 'pnsk-lab/hikkaku'],
+      args: ['skills', 'add', 'pnsk-lab/hikkaku/packages/skill'],
     }
   }
 
@@ -490,7 +490,7 @@ const getSkillsCommand = (pm) => {
         '--allow-sys=homedir',
         'npm:skills',
         'add',
-        'pnsk-lab/hikkaku',
+        'pnsk-lab/hikkaku/packages/skill',
       ],
     }
   }
@@ -498,20 +498,20 @@ const getSkillsCommand = (pm) => {
   if (pm === 'pnpm') {
     return {
       command: 'pnpx',
-      args: ['skills', 'add', 'pnsk-lab/hikkaku'],
+      args: ['skills', 'add', 'pnsk-lab/hikkaku/packages/skill'],
     }
   }
 
   if (pm === 'yarn') {
     return {
       command: 'yarn',
-      args: ['dlx', 'skills', 'add', 'pnsk-lab/hikkaku'],
+      args: ['dlx', 'skills', 'add', 'pnsk-lab/hikkaku/packages/skill'],
     }
   }
 
   return {
     command: 'npx',
-    args: ['skills', 'add', 'pnsk-lab/hikkaku'],
+    args: ['skills', 'add', 'pnsk-lab/hikkaku/packages/skill'],
   }
 }
 
@@ -557,7 +557,11 @@ const main = async () => {
   const packageManager =
     normalizePackageManager(detectedPackageManager) ?? 'npm'
   const interactive = process.stdin.isTTY && process.stdout.isTTY && !cli.yes
-  const prompter = interactive ? createPrompter() : undefined
+  let prompter = interactive ? createPrompter() : undefined
+  const closePrompter = () => {
+    prompter?.close()
+    prompter = undefined
+  }
 
   try {
     banner()
@@ -626,6 +630,10 @@ const main = async () => {
       )
     }
 
+    // Release stdin before running child processes (e.g. `skills add`) to avoid
+    // waiting for an extra Enter keypress in some terminals.
+    closePrompter()
+
     if (!includeAgents && cli.linkClaude === true) {
       warning('--link-claude was ignored because AGENTS.md is disabled')
     }
@@ -678,7 +686,7 @@ const main = async () => {
 
     printNextSteps({ projectPath, pm: packageManager })
   } finally {
-    prompter?.close()
+    closePrompter()
   }
 }
 
