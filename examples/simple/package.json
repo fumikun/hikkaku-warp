@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "bun run example:build",
     "typecheck": "tsgo",
-    "example:build": "vite build"
+    "example:build": "bun --bun vite build"
   },
   "dependencies": {
     "hikkaku": "workspace:*"
