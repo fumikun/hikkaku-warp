@@ -2,7 +2,7 @@ import { mkdir, rm, writeFile } from 'node:fs/promises'
 import type { ServerResponse } from 'node:http'
 import * as path from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { zip } from 'fflate'
+import { zip, zipSync } from 'fflate/node'
 import { createServerModuleRunner, type Plugin, type PluginOption } from 'vite'
 import type { ModuleRunner } from 'vite/module-runner'
 import type { Project } from '../core'
@@ -82,6 +82,7 @@ export default function hikkaku(init: HikkakuViteInit): PluginOption {
       },
       async generateBundle(_options, bundle) {
         if (this.environment.name !== 'hikkaku') return
+
         const tmpDir = path.join(process.cwd(), 'dist', '.tmp')
         for (const [filePath, file] of Object.entries(bundle)) {
           if (file.type === 'chunk') {
@@ -99,23 +100,35 @@ export default function hikkaku(init: HikkakuViteInit): PluginOption {
         const projectJSON = project.toScratch()
         const assets = project.getAdditionalAssets()
 
-        const zipData = await new Promise<Uint8Array>((resolve, reject) => {
-          zip(
-            {
-              'project.json': new TextEncoder().encode(
-                JSON.stringify(projectJSON),
-              ),
-              ...Object.fromEntries(assets.entries()),
-            },
-            (err, data) => {
-              if (err) {
-                reject(err)
-              } else {
-                resolve(data)
-              }
-            },
-          )
-        })
+        const projectJSONData = new TextEncoder().encode(
+          JSON.stringify(projectJSON),
+        )
+        const assetsToBundle = {
+          ...Object.fromEntries(assets.entries()),
+          'project.json': projectJSONData,
+        }
+        // https://github.com/101arrowz/fflate/issues/253
+        let has160KBAsset = false
+        for (const data of Object.values(assetsToBundle)) {
+          if (data.length >= 160000) {
+            has160KBAsset = true
+            break
+          }
+        }
+        const zipData =
+          has160KBAsset && globalThis?.navigator?.userAgent.includes('Bun')
+            ? zipSync(assetsToBundle)
+            : await new Promise<Uint8Array>((resolve, reject) => {
+                zip(assetsToBundle, (err, data) => {
+                  if (err) {
+                    console.error(err)
+                    reject(err)
+                  } else {
+                    resolve(data)
+                  }
+                })
+              })
+
         this.emitFile({
           type: 'asset',
           fileName: 'project.sb3',
