@@ -28,22 +28,12 @@ const PlaygroundClientOnly = defineComponent({
   },
 })
 
-const ShowcaseGridClientOnly = defineComponent({
-  name: 'ShowcaseGridClientOnly',
-  setup(_, { attrs, slots }) {
-    return () => {
-      if (!inBrowser) return null
-      return h(ShowcaseGridAsync, attrs, slots)
-    }
-  },
-})
-
 const theme: Theme = {
   ...DefaultTheme,
   enhanceApp(context) {
     DefaultTheme.enhanceApp?.(context)
     context.app.component('Playground', PlaygroundClientOnly)
-    context.app.component('ShowcaseGrid', ShowcaseGridClientOnly)
+    context.app.component('ShowcaseGrid', ShowcaseGridAsync)
     context.app.use(TwoslashFloatingVue)
   },
 }
