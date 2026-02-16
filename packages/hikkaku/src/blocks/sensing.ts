@@ -1,4 +1,4 @@
-import { fromPrimitiveSource, menuInput } from '../core/block-helper'
+import { fromPrimitiveSource } from '../core/block-helper'
 import { block, valueBlock } from '../core/composer'
 import type { PrimitiveSource } from '../core/types'
 
@@ -65,19 +65,11 @@ export type DragMode = 'draggable' | 'not draggable'
 export const touchingObject = (target: string) => {
   return valueBlock('sensing_touchingobject', {
     inputs: {
-      TOUCHINGOBJECTMENU: menuInput(target, menuOfTouchingObject),
+      TOUCHINGOBJECTMENU: fromPrimitiveSource(target),
     },
   })
 }
 
-export const menuOfTouchingObject = (target: string = '_mouse_') => {
-  return valueBlock('sensing_touchingobjectmenu', {
-    fields: {
-      TOUCHINGOBJECTMENU: [target, null],
-    },
-    isShadow: true,
-  })
-}
 /**
  * Touching color check.
  *
@@ -146,18 +138,9 @@ export const colorTouchingColor = (
  */
 export const distanceTo = (target: string) => {
   return valueBlock('sensing_distanceto', {
-    inputs: {
-      DISTANCETOMENU: menuInput(target, menuOfDistanceTo),
-    },
-  })
-}
-
-export const menuOfDistanceTo = (target: string = '_mouse_') => {
-  return valueBlock('sensing_distancetomenu', {
     fields: {
       DISTANCETOMENU: [target, null],
     },
-    isShadow: true,
   })
 }
 
@@ -256,17 +239,8 @@ export const getMouseDown = () => {
 export const getKeyPressed = (key: PrimitiveSource<string>) => {
   return valueBlock('sensing_keypressed', {
     inputs: {
-      KEY_OPTION: menuInput(key, menuOfKeyOptions),
+      KEY_OPTION: fromPrimitiveSource(key),
     },
-  })
-}
-
-export const menuOfKeyOptions = (key: string = 'space') => {
-  return valueBlock('sensing_keyoptions', {
-    fields: {
-      KEY_OPTION: [key, null],
-    },
-    isShadow: true,
   })
 }
 
@@ -292,6 +266,7 @@ export const current = (menu: CurrentMenu) => {
     },
   })
 }
+
 /**
  * Reads target attribute.
  *
@@ -312,18 +287,8 @@ export const getAttributeOf = (property: string, target: string) => {
   return valueBlock('sensing_of', {
     fields: {
       PROPERTY: [property, null],
+      OBJECT: [target, null],
     },
-    inputs: {
-      OBJECT: menuInput(target, menuOfAttributeObject),
-    },
-  })
-}
-export const menuOfAttributeObject = (object: string = '_stage_') => {
-  return valueBlock('sensing_of_object_menu', {
-    fields: {
-      OBJECT: [object, null],
-    },
-    isShadow: true,
   })
 }
 

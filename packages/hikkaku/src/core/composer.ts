@@ -49,14 +49,17 @@ export const block = (opcode: string, init: BlockInit): HikkakuBlock => {
   if (init.isValue) {
     ctx.valueBlockSet.add(block)
   }
+
   if (init.inputs) {
     for (const [_key, value] of Object.entries(init.inputs)) {
-      // [shadow,blockId] or [shadow,blockId,blockId]
-      value.slice(1).forEach((input) => {
-        if (typeof input === 'string') {
-          attachValueBlock(ctx, id, input)
+      if (typeof value[1] === 'string') {
+        const valueBlockId = value[1]
+        const valueBlock = ctx.blocks[valueBlockId]
+        if (valueBlock) {
+          valueBlock.parent = id
+          ctx.usedAsValueSet.add(valueBlock)
         }
-      })
+      }
     }
   }
 
@@ -68,19 +71,6 @@ export const block = (opcode: string, init: BlockInit): HikkakuBlock => {
     isBlock: true,
     id,
   }
-}
-
-function attachValueBlock(ctx: RootContext, parentId: string, blockId: string) {
-  const block = ctx.blocks[blockId]
-  if (!block) {
-    console.warn(
-      `Block with ID ${blockId} not found (referenced from block ${parentId})`,
-    )
-    return
-  }
-
-  block.parent = parentId
-  ctx.usedAsValueSet.add(block)
 }
 
 export const valueBlock = (opcode: string, init: BlockInit): HikkakuBlock => {

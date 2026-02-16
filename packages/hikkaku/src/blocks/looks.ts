@@ -1,8 +1,4 @@
-import {
-  fromPrimitiveSource,
-  menuInput,
-  unwrapCostumeSource,
-} from '../core/block-helper'
+import { fromCostumeSource, fromPrimitiveSource } from '../core/block-helper'
 import { block, valueBlock } from '../core/composer'
 import type { CostumeSource, PrimitiveSource } from '../core/types'
 
@@ -175,16 +171,8 @@ export const hide = () => {
 export const switchCostumeTo = (costume: CostumeSource) => {
   return block('looks_switchcostumeto', {
     inputs: {
-      COSTUME: menuInput(unwrapCostumeSource(costume), menuOfCostume),
+      COSTUME: fromCostumeSource(costume),
     },
-  })
-}
-export const menuOfCostume = (costume: string = '') => {
-  return valueBlock('looks_costume', {
-    fields: {
-      COSTUME: [costume, null],
-    },
-    isShadow: true,
   })
 }
 
@@ -224,17 +212,8 @@ export const nextCostume = () => {
 export const switchBackdropTo = (backdrop: PrimitiveSource<string>) => {
   return block('looks_switchbackdropto', {
     inputs: {
-      BACKDROP: menuInput(backdrop, menuOfBackdrop),
+      BACKDROP: fromPrimitiveSource(backdrop),
     },
-  })
-}
-
-export const menuOfBackdrop = (backdrop: string = '') => {
-  return valueBlock('looks_backdrops', {
-    fields: {
-      BACKDROP: [backdrop, null],
-    },
-    isShadow: true,
   })
 }
 
@@ -256,7 +235,7 @@ export const menuOfBackdrop = (backdrop: string = '') => {
 export const switchBackdropToAndWait = (backdrop: PrimitiveSource<string>) => {
   return block('looks_switchbackdroptoandwait', {
     inputs: {
-      BACKDROP: menuInput(backdrop, menuOfBackdrop),
+      BACKDROP: fromPrimitiveSource(backdrop),
     },
   })
 }

@@ -1,4 +1,4 @@
-import { fromPrimitiveSource, menuInput } from '../core/block-helper'
+import { fromPrimitiveSource } from '../core/block-helper'
 import { attachStack, block, substack, valueBlock } from '../core/composer'
 import { Shadow } from '../core/sb3-enum'
 import type { PrimitiveSource, VariableReference } from '../core/types'
@@ -368,26 +368,14 @@ export const CREATE_CLONE_MYSELF = '_myself_'
  * ```ts
  * import { createClone } from 'hikkaku/blocks'
  *
- * createClone('Sprite1')
+ * createClone('mouse-pointer')
  * ```
  */
-
 export const createClone = (target: PrimitiveSource<string>) => {
   return block('control_create_clone_of', {
     inputs: {
-      CLONE_OPTION: menuInput(target, menuOfCreateClone),
+      CLONE_OPTION: fromPrimitiveSource(target),
     },
-  })
-}
-
-export const menuOfCreateClone = (
-  target: (string & {}) | typeof CREATE_CLONE_MYSELF = CREATE_CLONE_MYSELF,
-) => {
-  return valueBlock('control_create_clone_of_menu', {
-    fields: {
-      CLONE_OPTION: [target, null],
-    },
-    isShadow: true,
   })
 }
 
