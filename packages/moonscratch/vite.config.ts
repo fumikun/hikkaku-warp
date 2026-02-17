@@ -42,6 +42,8 @@ export default defineConfig({
   pack: {
     entry: 'js/index.ts',
     dts: true,
+    inlineOnly: ['sb3-types'],
+    external: ['sharp', 'detect-libc', 'semver', '@img/colour'],
     plugins: [
       {
         name: 'mbt-binding',
