@@ -2,13 +2,18 @@
   "name": "moonscratch",
   "type": "module",
   "module": "js/index.ts",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.mts"
     }
   },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "repository": {
     "url": "https://github.com/pnsk-lab/hikkaku",
     "type": "git",
