@@ -10,6 +10,10 @@
       "dependsOn": ["moonscratch#build", "@hikkaku/testing#build"],
       "outputs": []
     },
+    "test": {
+      "cache": false,
+      "outputs": []
+    },
     "build-blocks": {
       "outputs": ["src/blocks/**"]
     },
