@@ -1,8 +1,5 @@
-import {
-  fromPrimitiveSource,
-  fromPrimitiveSourceColor,
-  menuInput,
-} from '../core/block-helper'
+import { InputType } from 'sb3-types/enum'
+import { fromPrimitiveSource, menuInput } from '../core/block-helper'
 import { block, valueBlock } from '../core/composer'
 import type { PrimitiveSource } from '../core/types'
 
@@ -119,7 +116,7 @@ export const setPenColorTo = (
 ) => {
   return block('pen_setPenColorToColor', {
     inputs: {
-      COLOR: fromPrimitiveSourceColor(color),
+      COLOR: fromPrimitiveSource(InputType.Color, color),
     },
   })
 }
@@ -163,7 +160,7 @@ export const changePenColorParamBy = (
   return block('pen_changePenColorParamBy', {
     inputs: {
       COLOR_PARAM: menuInput(param, menuOfPenColorParam),
-      VALUE: fromPrimitiveSource(value),
+      VALUE: fromPrimitiveSource(InputType.Number, value, 10),
     },
   })
 }
@@ -199,7 +196,7 @@ export const setPenColorParamTo = (
   return block('pen_setPenColorParamTo', {
     inputs: {
       COLOR_PARAM: menuInput(param, menuOfPenColorParam),
-      VALUE: fromPrimitiveSource(value),
+      VALUE: fromPrimitiveSource(InputType.Number, value, 10),
     },
   })
 }
@@ -222,7 +219,7 @@ export const setPenColorParamTo = (
 export const changePenSizeBy = (size: PrimitiveSource<number>) => {
   return block('pen_changePenSizeBy', {
     inputs: {
-      SIZE: fromPrimitiveSource(size),
+      SIZE: fromPrimitiveSource(InputType.Number, size, 1),
     },
   })
 }
@@ -245,7 +242,7 @@ export const changePenSizeBy = (size: PrimitiveSource<number>) => {
 export const setPenSizeTo = (size: PrimitiveSource<number>) => {
   return block('pen_setPenSizeTo', {
     inputs: {
-      SIZE: fromPrimitiveSource(size),
+      SIZE: fromPrimitiveSource(InputType.Number, size, 1),
     },
   })
 }
@@ -268,7 +265,7 @@ export const setPenSizeTo = (size: PrimitiveSource<number>) => {
 export const setPenShadeToNumber = (shade: PrimitiveSource<number>) => {
   return block('pen_setPenShadeToNumber', {
     inputs: {
-      SHADE: fromPrimitiveSource(shade),
+      SHADE: fromPrimitiveSource(InputType.Number, shade, 50),
     },
   })
 }
@@ -291,7 +288,7 @@ export const setPenShadeToNumber = (shade: PrimitiveSource<number>) => {
 export const changePenShadeBy = (shade: PrimitiveSource<number>) => {
   return block('pen_changePenShadeBy', {
     inputs: {
-      SHADE: fromPrimitiveSource(shade),
+      SHADE: fromPrimitiveSource(InputType.Number, shade, 50),
     },
   })
 }
@@ -314,7 +311,7 @@ export const changePenShadeBy = (shade: PrimitiveSource<number>) => {
 export const setPenHueToNumber = (hue: PrimitiveSource<number>) => {
   return block('pen_setPenHueToNumber', {
     inputs: {
-      HUE: fromPrimitiveSource(hue),
+      HUE: fromPrimitiveSource(InputType.Number, hue, 0),
     },
   })
 }
@@ -337,7 +334,7 @@ export const setPenHueToNumber = (hue: PrimitiveSource<number>) => {
 export const changePenHueBy = (hue: PrimitiveSource<number>) => {
   return block('pen_changePenHueBy', {
     inputs: {
-      HUE: fromPrimitiveSource(hue),
+      HUE: fromPrimitiveSource(InputType.Number, hue, 0),
     },
   })
 }

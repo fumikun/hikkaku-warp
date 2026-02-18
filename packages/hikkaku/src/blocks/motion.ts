@@ -1,3 +1,4 @@
+import { InputType } from 'sb3-types/enum'
 import { fromPrimitiveSource, menuInput } from '../core/block-helper'
 import { block, valueBlock } from '../core/composer'
 import type { PrimitiveSource } from '../core/types'
@@ -20,7 +21,7 @@ import type { PrimitiveSource } from '../core/types'
 export const moveSteps = (steps: PrimitiveSource<number>) => {
   return block('motion_movesteps', {
     inputs: {
-      STEPS: fromPrimitiveSource(steps),
+      STEPS: fromPrimitiveSource(InputType.Number, steps, 10),
     },
   })
 }
@@ -47,8 +48,8 @@ export const gotoXY = (
 ) => {
   return block('motion_gotoxy', {
     inputs: {
-      X: fromPrimitiveSource(x),
-      Y: fromPrimitiveSource(y),
+      X: fromPrimitiveSource(InputType.Number, x, 0),
+      Y: fromPrimitiveSource(InputType.Number, y, 0),
     },
   })
 }
@@ -71,7 +72,7 @@ export const gotoXY = (
 export const changeXBy = (dx: PrimitiveSource<number>) => {
   return block('motion_changexby', {
     inputs: {
-      DX: fromPrimitiveSource(dx),
+      DX: fromPrimitiveSource(InputType.Number, dx, 10),
     },
   })
 }
@@ -94,7 +95,7 @@ export const changeXBy = (dx: PrimitiveSource<number>) => {
 export const changeYBy = (dy: PrimitiveSource<number>) => {
   return block('motion_changeyby', {
     inputs: {
-      DY: fromPrimitiveSource(dy),
+      DY: fromPrimitiveSource(InputType.Number, dy, 10),
     },
   })
 }
@@ -117,7 +118,7 @@ export const changeYBy = (dy: PrimitiveSource<number>) => {
 export const setX = (x: PrimitiveSource<number>) => {
   return block('motion_setx', {
     inputs: {
-      X: fromPrimitiveSource(x),
+      X: fromPrimitiveSource(InputType.Number, x, 0),
     },
   })
 }
@@ -140,7 +141,7 @@ export const setX = (x: PrimitiveSource<number>) => {
 export const setY = (y: PrimitiveSource<number>) => {
   return block('motion_sety', {
     inputs: {
-      Y: fromPrimitiveSource(y),
+      Y: fromPrimitiveSource(InputType.Number, y, 0),
     },
   })
 }
@@ -195,7 +196,7 @@ export const menuOfGoTo = (target: string = GOTO_RANDOM) => {
 export const turnRight = (degrees: PrimitiveSource<number>) => {
   return block('motion_turnright', {
     inputs: {
-      DEGREES: fromPrimitiveSource(degrees),
+      DEGREES: fromPrimitiveSource(InputType.Number, degrees, 15),
     },
   })
 }
@@ -218,7 +219,7 @@ export const turnRight = (degrees: PrimitiveSource<number>) => {
 export const turnLeft = (degrees: PrimitiveSource<number>) => {
   return block('motion_turnleft', {
     inputs: {
-      DEGREES: fromPrimitiveSource(degrees),
+      DEGREES: fromPrimitiveSource(InputType.Number, degrees, 15),
     },
   })
 }
@@ -241,7 +242,7 @@ export const turnLeft = (degrees: PrimitiveSource<number>) => {
 export const pointInDirection = (direction: PrimitiveSource<number>) => {
   return block('motion_pointindirection', {
     inputs: {
-      DIRECTION: fromPrimitiveSource(direction),
+      DIRECTION: fromPrimitiveSource(InputType.Angle, direction, 90),
     },
   })
 }
@@ -302,9 +303,9 @@ export const glide = (
 ) => {
   return block('motion_glidesecstoxy', {
     inputs: {
-      SECS: fromPrimitiveSource(seconds),
-      X: fromPrimitiveSource(x),
-      Y: fromPrimitiveSource(y),
+      SECS: fromPrimitiveSource(InputType.Number, seconds, 1),
+      X: fromPrimitiveSource(InputType.Number, x, 0),
+      Y: fromPrimitiveSource(InputType.Number, y, 0),
     },
   })
 }
@@ -331,7 +332,7 @@ export const glideTo = (
 ) => {
   return block('motion_glideto', {
     inputs: {
-      SECS: fromPrimitiveSource(seconds),
+      SECS: fromPrimitiveSource(InputType.Number, seconds, 1),
       TO: menuInput(target, menuOfGlideTo),
     },
   })

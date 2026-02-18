@@ -1,6 +1,10 @@
-import { fromPrimitiveSource, menuInput } from '../core/block-helper'
+import { InputType, Shadow } from 'sb3-types/enum'
+import {
+  fromBooleanSource,
+  fromPrimitiveSource,
+  menuInput,
+} from '../core/block-helper'
 import { attachStack, block, substack, valueBlock } from '../core/composer'
-import { Shadow } from '../core/sb3-enum'
 import type { PrimitiveSource, VariableReference } from '../core/types'
 
 export type StopOption =
@@ -29,7 +33,7 @@ export const repeat = (times: PrimitiveSource<number>, handler: () => void) => {
   const substackId = substack(handler)
   return block('control_repeat', {
     inputs: {
-      TIMES: fromPrimitiveSource(times),
+      TIMES: fromPrimitiveSource(InputType.PositiveInteger, times, 10),
       ...(substackId ? { SUBSTACK: [Shadow.NoShadow, substackId] } : {}),
     },
   })
@@ -58,7 +62,7 @@ export const repeatUntil = (
   const substackId = substack(handler)
   return block('control_repeat_until', {
     inputs: {
-      CONDITION: fromPrimitiveSource(condition),
+      CONDITION: fromBooleanSource(condition),
       ...(substackId ? { SUBSTACK: [Shadow.NoShadow, substackId] } : {}),
     },
   })
@@ -87,7 +91,7 @@ export const repeatWhile = (
   const substackId = substack(handler)
   return block('control_while', {
     inputs: {
-      CONDITION: fromPrimitiveSource(condition),
+      CONDITION: fromBooleanSource(condition),
       ...(substackId ? { SUBSTACK: [Shadow.NoShadow, substackId] } : {}),
     },
   })
@@ -118,7 +122,7 @@ export const forEach = (
   const substackId = substack(handler)
   return block('control_for_each', {
     inputs: {
-      VALUE: fromPrimitiveSource(value),
+      VALUE: fromPrimitiveSource(InputType.Number, value, 10),
       ...(substackId ? { SUBSTACK: [Shadow.NoShadow, substackId] } : {}),
     },
     fields: {
@@ -171,7 +175,7 @@ export const forever = (handler: () => void) => {
 export const wait = (seconds: PrimitiveSource<number>) => {
   return block('control_wait', {
     inputs: {
-      DURATION: fromPrimitiveSource(seconds),
+      DURATION: fromPrimitiveSource(InputType.Number, seconds, 1),
     },
   })
 }
@@ -194,7 +198,7 @@ export const wait = (seconds: PrimitiveSource<number>) => {
 export const waitUntil = (condition: PrimitiveSource<boolean>) => {
   return block('control_wait_until', {
     inputs: {
-      CONDITION: fromPrimitiveSource(condition),
+      CONDITION: fromBooleanSource(condition),
     },
   })
 }
@@ -222,7 +226,7 @@ export const ifThen = (
   const substackId = substack(handler)
   return block('control_if', {
     inputs: {
-      CONDITION: fromPrimitiveSource(condition),
+      CONDITION: fromBooleanSource(condition),
       ...(substackId ? { SUBSTACK: [Shadow.NoShadow, substackId] } : {}),
     },
   })
@@ -254,7 +258,7 @@ export const ifElse = (
   const elseSubstackId = substack(elseHandler)
   return block('control_if_else', {
     inputs: {
-      CONDITION: fromPrimitiveSource(condition),
+      CONDITION: fromBooleanSource(condition),
       ...(thenSubstackId
         ? { SUBSTACK: [Shadow.NoShadow, thenSubstackId] }
         : {}),

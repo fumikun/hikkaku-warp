@@ -1,3 +1,4 @@
+import { InputType } from 'sb3-types/enum'
 import {
   fromPrimitiveSource,
   menuInput,
@@ -37,7 +38,7 @@ export type NumberName = 'number' | 'name'
 export const say = (message: PrimitiveSource<string>) => {
   return block('looks_say', {
     inputs: {
-      MESSAGE: fromPrimitiveSource(message),
+      MESSAGE: fromPrimitiveSource(InputType.String, message, 'Hello!'),
     },
   })
 }
@@ -64,8 +65,8 @@ export const sayForSecs = (
 ) => {
   return block('looks_sayforsecs', {
     inputs: {
-      MESSAGE: fromPrimitiveSource(message),
-      SECS: fromPrimitiveSource(seconds),
+      MESSAGE: fromPrimitiveSource(InputType.String, message, 'Hello!'),
+      SECS: fromPrimitiveSource(InputType.Number, seconds, 2),
     },
   })
 }
@@ -88,7 +89,7 @@ export const sayForSecs = (
 export const think = (message: PrimitiveSource<string>) => {
   return block('looks_think', {
     inputs: {
-      MESSAGE: fromPrimitiveSource(message),
+      MESSAGE: fromPrimitiveSource(InputType.String, message, 'Hello!'),
     },
   })
 }
@@ -115,8 +116,8 @@ export const thinkForSecs = (
 ) => {
   return block('looks_thinkforsecs', {
     inputs: {
-      MESSAGE: fromPrimitiveSource(message),
-      SECS: fromPrimitiveSource(seconds),
+      MESSAGE: fromPrimitiveSource(InputType.String, message, 'Hello!'),
+      SECS: fromPrimitiveSource(InputType.Number, seconds, 2),
     },
   })
 }
@@ -301,7 +302,7 @@ export const changeLooksEffectBy = (
 ) => {
   return block('looks_changeeffectby', {
     inputs: {
-      CHANGE: fromPrimitiveSource(value),
+      CHANGE: fromPrimitiveSource(InputType.Number, value, 10),
     },
     fields: {
       EFFECT: [effect, null],
@@ -331,7 +332,7 @@ export const setLooksEffectTo = (
 ) => {
   return block('looks_seteffectto', {
     inputs: {
-      VALUE: fromPrimitiveSource(value),
+      VALUE: fromPrimitiveSource(InputType.Number, value, 100),
     },
     fields: {
       EFFECT: [effect, null],
@@ -375,7 +376,7 @@ export const clearGraphicEffects = () => {
 export const changeSizeBy = (value: PrimitiveSource<number>) => {
   return block('looks_changesizeby', {
     inputs: {
-      CHANGE: fromPrimitiveSource(value),
+      CHANGE: fromPrimitiveSource(InputType.Number, value, 10),
     },
   })
 }
@@ -398,7 +399,7 @@ export const changeSizeBy = (value: PrimitiveSource<number>) => {
 export const setSizeTo = (value: PrimitiveSource<number>) => {
   return block('looks_setsizeto', {
     inputs: {
-      SIZE: fromPrimitiveSource(value),
+      SIZE: fromPrimitiveSource(InputType.Number, value, 100),
     },
   })
 }
@@ -448,7 +449,7 @@ export const goForwardBackwardLayers = (
 ) => {
   return block('looks_goforwardbackwardlayers', {
     inputs: {
-      NUM: fromPrimitiveSource(layers),
+      NUM: fromPrimitiveSource(InputType.Integer, layers, 1),
     },
     fields: {
       FORWARD_BACKWARD: [direction, null],

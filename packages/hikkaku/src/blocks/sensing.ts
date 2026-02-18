@@ -1,8 +1,5 @@
-import {
-  fromPrimitiveSource,
-  fromPrimitiveSourceColor,
-  menuInput,
-} from '../core/block-helper'
+import { InputType } from 'sb3-types/enum'
+import { fromPrimitiveSource, menuInput } from '../core/block-helper'
 import { block, valueBlock } from '../core/composer'
 import type { PrimitiveSource } from '../core/types'
 
@@ -100,7 +97,7 @@ export const menuOfTouchingObject = (target: string = '_mouse_') => {
 export const touchingColor = (color: PrimitiveSource<`#${string}`>) => {
   return valueBlock('sensing_touchingcolor', {
     inputs: {
-      COLOR: fromPrimitiveSourceColor(color),
+      COLOR: fromPrimitiveSource(InputType.Color, color),
     },
   })
 }
@@ -127,8 +124,8 @@ export const colorTouchingColor = (
 ) => {
   return valueBlock('sensing_coloristouchingcolor', {
     inputs: {
-      COLOR: fromPrimitiveSourceColor(color),
-      COLOR2: fromPrimitiveSourceColor(targetColor),
+      COLOR: fromPrimitiveSource(InputType.Color, color),
+      COLOR2: fromPrimitiveSource(InputType.Color, targetColor),
     },
   })
 }
@@ -404,7 +401,11 @@ export const isLoud = () => {
 export const askAndWait = (question: PrimitiveSource<string>) => {
   return block('sensing_askandwait', {
     inputs: {
-      QUESTION: fromPrimitiveSource(question),
+      QUESTION: fromPrimitiveSource(
+        InputType.String,
+        question,
+        "What's your name?",
+      ),
     },
   })
 }

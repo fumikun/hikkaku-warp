@@ -42,11 +42,11 @@ describe('createProjectHarness', () => {
     })
 
     expect(calls).toEqual(['setup'])
-    expect(harness.snapshotVariable('Stage', 'score')).toBe(0)
+    expect(harness.snapshotVariable('Stage', 'score')).toBeLooselyEqual(0)
 
     harness.start()
     harness.runUntilIdle()
-    expect(harness.snapshotVariable('Stage', 'score')).toBe(42)
+    expect(harness.snapshotVariable('Stage', 'score')).toBeLooselyEqual(42)
   })
 })
 
@@ -60,7 +60,7 @@ describe('run helpers', () => {
     expect(result.snapshot).toBeTruthy()
     expect(
       getSnapshotVariable(result.snapshot, result.project, 'Stage', 'score'),
-    ).toBe(42)
+    ).toBeLooselyEqual(42)
   })
 
   test('runProjectFrames advances at least one frame', async () => {
